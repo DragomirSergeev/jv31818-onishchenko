@@ -20,6 +20,9 @@ TR.head {
         TD {
         text-align:center;
         }
+TD {
+    color:white;
+}
 
         .content{
 margin: 0, auto;
@@ -150,4 +153,8 @@ width: 70%;
 height: 200px;
 background: white;
 margin: 0 auto;
+}
+
+table.tr {
+color:white;
 }

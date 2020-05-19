@@ -6,11 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 @Repository
 public interface ControllerWiyRepository extends JpaRepository<ControllerWiy,Integer> {
 
-    Set<ControllerWiy> findByOwner(Integer id);
+    List<ControllerWiy> findByOwner(Integer id);
 }

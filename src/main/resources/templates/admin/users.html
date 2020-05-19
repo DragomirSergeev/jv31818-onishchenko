@@ -12,6 +12,7 @@
 <h1>User management</h1>
 <br/>
 <br/>
+<form th:object="${user}" th:action="@{/admin/users}" method="POST">
 <table>
     <tr th:each="lsr : ${list}">
         <td>Пользователь:</td>
@@ -21,33 +22,53 @@
         <td th:text=${lsr.username}></td>
 
         <td>Действия</td>
-        <td><a href="">Заблокировать</a>
-            <a href="">Удалить</a>
-            <a href="">Просмотреть контроллеры</a>
+        <td><a href="/admin/users.html?act=block&login=${lsr.username}&userid=${lsr.id}">Заблокировать</a>
+            <a href="/admin/users.html?act=delete&login=${lsr.username}&userid=${lsr.id}">Удалить</a>
+            <a th:href="@{/admin/user/}+${lsr.id}">Просмотреть контроллеры</a>
         </td>
     </tr>
+
+    <tr><td colspan="6">Добавить пользователя.(простой пасс)</td></tr>
+
+    <tr>
+        <td><p>Login</p></td><td><p>
+        <input type="text" id="username" th:field="*{username}"/>
+    </p></td>
+        <td><p>First name</p></td><td><p>
+        <input type="text" id="first_name" th:field="*{firstName}"/>
+    </p></td>
+        <td><p>Password</p></td><td><p>
+        <input type="password" id="password" th:field="*{password}"/>
+    </p></td>
+    <tr>
+    <td colspan="3"><p>Включить: <input type="checkbox" th:field="*{enabled}" max="1" min="0"/></p></td>
+    <td  colspan="3"><p><input type="submit" value="Добавить"/></p></td>
+</tr>
+
+    </tr>
+
 </table>
-<form th:object="${user}" th:action="@{/admin/users}" method="POST">
-    <table>
-        <tr><td><p>Добавить пользователя.(простой пасс)</p></td></tr>
-        <tr>
-            <td><p>Login</p></td><td><p>
-            <input type="text" id="username" th:field="*{username}"/>
-        </p></td>
-            <td><p>First name</p></td><td><p>
-            <input type="text" id="first_name" th:field="*{firstName}"/>
-        </p></td>
-            <td><p>Password</p></td><td><p>
-            <input type="password" id="password" th:field="*{password}"/>
-        </p></td>
-            <td><p><input type="checkbox" th:field="*{enabled}" max="1" min="0"/></p></td>
-        </tr>
-        <tr><td>p><input type="submit" value="ADD USER"/></p></td></tr>
-    </table>
-
-
-    <
 </form>
+
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"
+></script>
+
+<script>
+
+            $.ajax({
+                url: '/admin/user/' + userId,
+                method: 'DELETE',
+                success: function () {
+                    li.remove();
+                },
+                error: function () {}
+            });
+
+    </script>
+
 
 </body>
 </html>

@@ -1,7 +1,9 @@
-package org.itstep.msk.app.controller.front;
+package org.itstep.msk.app.controller.front.admin;
 
+import org.itstep.msk.app.entity.ControllerWiy;
 import org.itstep.msk.app.entity.Role;
 import org.itstep.msk.app.entity.User;
+import org.itstep.msk.app.repository.ControllerWiyRepository;
 import org.itstep.msk.app.repository.RoleRepository;
 import org.itstep.msk.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,19 +27,23 @@ public class AdminController {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    ControllerWiyRepository controllerWiyRepository;
+
     @GetMapping("/")
     public String admin() {
         return "admin/admin";
     }
 
 
-
+//TODO: show controllers...
     @GetMapping("/user/{id}")
     public String users(@PathVariable Integer id,Model model) {
         //ModelAndView modelv = new ModelAndView("/admin/user");
         User user = userRepository.findById(id).orElse(new User());
-
+        List<ControllerWiy> userControllers = controllerWiyRepository.findByOwner(id);
         model.addAttribute("user",user);
+        model.addAttribute("controllers",userControllers);
         return "/admin/user";
     }
 
