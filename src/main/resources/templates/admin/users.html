@@ -14,7 +14,7 @@
 <br/>
 <form th:object="${user}" th:action="@{/admin/users}" method="POST">
 <table>
-    <tr th:each="lsr : ${list}">
+    <tr th:id="${lsr.id}" th:each="lsr : ${list}">
         <td>Пользователь:</td>
         <td th:text=${lsr.firstName}></td>
 
@@ -22,8 +22,8 @@
         <td th:text=${lsr.username}></td>
 
         <td>Действия</td>
-        <td><a href="/admin/users.html?act=block&login=${lsr.username}&userid=${lsr.id}">Заблокировать</a>
-            <a href="/admin/users.html?act=delete&login=${lsr.username}&userid=${lsr.id}">Удалить</a>
+        <td><a href="" th:onclick="'block('+${lsr.id}+')'">Заблокировать</a>
+            <a class="deleteRow" href="" th:onclick="'delete('+${lsr.id}+')'" th:attr="data-user-id=${lsr.id}">Удалить</a>
             <a th:href="@{/admin/user/}+${lsr.id}">Просмотреть контроллеры</a>
         </td>
     </tr>
@@ -50,23 +50,29 @@
 </table>
 </form>
 
-<script
+<script th:inline="javascript"
         src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"
 ></script>
 
-<script>
-
-            $.ajax({
-                url: '/admin/user/' + userId,
+<script th:inline="javascript">
+$("a.deleteRow").click(function (event){
+    event.preventDefault();
+    var td = $(event.target).parent();
+    var tr = td.parent();
+    let userId = $(event.target).attr('data-user-id');
+   $.ajax({
+                url: '/admin/users/delete/' + userId,
                 method: 'DELETE',
                 success: function () {
-                    li.remove();
+                    tr.remove();
                 },
-                error: function () {}
+                error: function (error) {
+                alert('error; ' + eval(error));
+                }
             });
-
+});
     </script>
 
 

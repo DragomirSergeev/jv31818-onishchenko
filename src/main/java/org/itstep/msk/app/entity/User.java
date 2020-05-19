@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -77,6 +78,9 @@ public class User implements Serializable {
 //        return enabled;
 //    }
     public Set<Role> getUserRole() {
+        if(userRole==null){
+            userRole=new HashSet<>();
+        }
         return userRole;
     }
 

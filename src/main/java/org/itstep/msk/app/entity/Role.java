@@ -12,6 +12,7 @@ public class Role {
     @Column(name = "role")
     private String role;
 
+    public Role(){}
     public Role(String role_user) {
         this.role=role_user;
     }

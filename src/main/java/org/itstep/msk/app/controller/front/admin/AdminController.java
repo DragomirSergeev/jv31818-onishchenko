@@ -13,9 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -51,7 +49,11 @@ public class AdminController {
     @PostMapping("/users")
     public String userAdd(@ModelAttribute User user) {
         //ModelAndView model = new ModelAndView("admin/user");
-        user.getUserRole().add(new Role("ROLE_USER"));
+        Set<Role> defaultRoles = new HashSet<>();
+        user.setUserRole(defaultRoles);
+        Optional<Role> rl = roleRepository.findById(2);
+        Role role = rl.get();
+        user.getUserRole().add(role);
         userRepository.save(user);
         userRepository.flush();
         return "redirect:/admin/users";///{"+ user.getId().toString() +"}";
