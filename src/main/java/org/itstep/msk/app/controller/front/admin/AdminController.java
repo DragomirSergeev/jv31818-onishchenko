@@ -34,7 +34,6 @@ public class AdminController {
     }
 
 
-//TODO: show controllers...
     @GetMapping("/user/{id}")
     public String users(@PathVariable Integer id,Model model) {
         //ModelAndView modelv = new ModelAndView("/admin/user");

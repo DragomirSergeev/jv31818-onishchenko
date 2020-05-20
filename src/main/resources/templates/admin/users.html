@@ -15,6 +15,7 @@
 <form th:object="${user}" th:action="@{/admin/users}" method="POST">
 <table>
     <tr th:id="${lsr.id}" th:each="lsr : ${list}">
+        <td><input type="checkbox" th:checked="${lsr.enabled}" class="blockUser" th:attr="data-user-id=${lsr.id}"></td>
         <td>Пользователь:</td>
         <td th:text=${lsr.firstName}></td>
 
@@ -22,16 +23,16 @@
         <td th:text=${lsr.username}></td>
 
         <td>Действия</td>
-        <td><a href="" th:onclick="'block('+${lsr.id}+')'">Заблокировать</a>
-            <a class="deleteRow" href="" th:onclick="'delete('+${lsr.id}+')'" th:attr="data-user-id=${lsr.id}">Удалить</a>
+        <td>
+            <a class="deleteRow" href="" th:attr="data-user-id=${lsr.id}">Удалить</a>
             <a th:href="@{/admin/user/}+${lsr.id}">Просмотреть контроллеры</a>
         </td>
     </tr>
 
-    <tr><td colspan="6">Добавить пользователя.(простой пасс)</td></tr>
+    <tr><td colspan="7">Добавить пользователя.(простой пасс)</td></tr>
 
     <tr>
-        <td><p>Login</p></td><td><p>
+        <td colspan="2"><p>Login</p></td><td><p>
         <input type="text" id="username" th:field="*{username}"/>
     </p></td>
         <td><p>First name</p></td><td><p>
@@ -41,11 +42,9 @@
         <input type="password" id="password" th:field="*{password}"/>
     </p></td>
     <tr>
-    <td colspan="3"><p>Включить: <input type="checkbox" th:field="*{enabled}" max="1" min="0"/></p></td>
+    <td colspan="4"><p>Включить: <input type="checkbox" th:field="*{enabled}" max="1" min="0"/></p></td>
     <td  colspan="3"><p><input type="submit" value="Добавить"/></p></td>
 </tr>
-
-    </tr>
 
 </table>
 </form>
@@ -73,8 +72,38 @@ $("a.deleteRow").click(function (event){
                 }
             });
 });
+$("input.blockUser").change(function (event){
+    event.preventDefault();
+   var checkbox = $(event.target);
+    let userId = $(event.target).attr('data-user-id');
+    if(checkbox.is(':checked')){
+        $.ajax({
+                    url: '/admin/users/block/' + userId,
+                    dataType: 'json',
+                    method: 'POST',
+                    data: {enable:1},
+                    success: function () {
+                    },
+                    error: function(jqxhr, status, errorMsg) {
+				    console.log("Статус: " + status +" Ошибка: " + errorMsg);
+			}
+
+               });
+    }else{
+        $.ajax({
+                    url: '/admin/users/block/' + userId,
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {enable:0},
+                    success: function () {
+                    },
+                    error: function(jqxhr, status, errorMsg) {
+				    console.log("Статус: " + status +" Ошибка: " + errorMsg);
+			}
+              });
+         }
+
+});
     </script>
-
-
 </body>
 </html>
