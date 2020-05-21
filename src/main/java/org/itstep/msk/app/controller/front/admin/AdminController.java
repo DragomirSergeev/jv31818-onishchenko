@@ -59,8 +59,17 @@ public class AdminController {
     }
     @GetMapping("/users")
     public String usersAll(Model model) {
+        return usersAllPages(model,0,50);
+    }
+    @GetMapping("/users/{start}&{end}")
+    public String usersAllPages(Model model,int startIndex,int endIndex){
         List<User> list = userRepository.findAll();
-        model.addAttribute("list", list);
+        List<Integer> pages = new ArrayList<>();
+        for(int i=0;i<list.size()/50;i++){
+            pages.add(i+1);
+        }
+        model.addAttribute("pages",pages);
+        model.addAttribute("list", list.subList(startIndex,list.size()>endIndex?endIndex:list.size()));
         model.addAttribute("user",new User());
         return "/admin/users";
     }

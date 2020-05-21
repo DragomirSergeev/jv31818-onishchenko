@@ -5,15 +5,27 @@
     <link rel="stylesheet" type="text/css" href="/CSS/main.css">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <meta charset="UTF-8">
-    <title>Users</title>
+    <title>Управление пользователями</title>
 </head>
 <body>
 <div th:include="/admin/adminMenu :: adminMenu">  </div>
-<h1>User management</h1>
+<h1 color="white">Управление пользователями</h1>
+<br/>
+<br/>
+<form>
+    <table  class="central">
+        <tr><td colspan="2"><p align="center">Поиск пользователя</p></br></td></tr>
+        <tr><td>Логин:</td><td><input type="text" label="Логин"></td>
+            <td colspan="2"><input type="button" value="поиск"/></td></tr>
+        <tr class="resultHeader"><td colspan="3" ><p align="center">Результаты:</p></td></tr>
+        <tr class="resultRow"><td></td><td></td><td></td></tr>
+    </table>
+</form>
+
 <br/>
 <br/>
 <form th:object="${user}" th:action="@{/admin/users}" method="POST">
-<table>
+<table class="central">
     <tr th:id="${lsr.id}" th:each="lsr : ${list}">
         <td><input type="checkbox" th:checked="${lsr.enabled}" class="blockUser" th:attr="data-user-id=${lsr.id}"></td>
         <td>Пользователь:</td>
@@ -25,9 +37,13 @@
         <td>Действия</td>
         <td>
             <a class="deleteRow" href="" th:attr="data-user-id=${lsr.id}">Удалить</a>
-            <a th:href="@{/admin/user/}+${lsr.id}">Просмотреть контроллеры</a>
+            <a th:href="@{/admin/user/}+${lsr.id}">Контроллеры</a>
         </td>
     </tr>
+    <tr><td colspan="7" th:if="${pages.size > 0}" class="pagination"
+            th:each="page : ${pages}">
+        <a th:href="@{/admin/users/}+${page}*50+'&'+${page}*50+50">th:text=${page}</a>
+    </td></tr>
 
     <tr><td colspan="7">Добавить пользователя.(простой пасс)</td></tr>
 
@@ -45,7 +61,6 @@
     <td colspan="4"><p>Включить: <input type="checkbox" th:field="*{enabled}" max="1" min="0"/></p></td>
     <td  colspan="3"><p><input type="submit" value="Добавить"/></p></td>
 </tr>
-
 </table>
 </form>
 
