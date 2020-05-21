@@ -165,3 +165,9 @@ width:80%;
 h1{
 color: white;
 }
+#searchResult{
+border-radius: 5px;
+border: 0px;
+background: white;
+width:100px;
+}

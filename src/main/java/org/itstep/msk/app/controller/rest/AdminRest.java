@@ -54,4 +54,12 @@ public class AdminRest {
         return list;
     }
 
+    @GetMapping("/users/findByName/{name}")
+    @ResponseBody
+    public ArrayList<User> findLikeName(@PathVariable String name){
+        ArrayList<User> list = new ArrayList<>();
+        list = userRepository.findLikeUsername(name,name);
+        return list;
+    }
+
 }

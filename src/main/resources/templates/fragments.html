@@ -12,34 +12,34 @@
         <form th:action="@{/logout}" method="post">
         <input th:if="${#httpServletRequest.remoteUser}" type="submit" value="Sign Out"/>
     </form>
-        <p th:unless="${#httpServletRequest.remoteUser}"> <a th:href="@{/login}">Sign in</a><br/><a th:href="@{/register}">Sign up</a> </p>
+        <p th:unless="${#httpServletRequest.remoteUser}"> <a th:href="@{/login}">Вход</a><br/><a th:href="@{/register}">Регистрация</a> </p>
     </div>
 </div>
 <!--главное меню на инфо -->
 <div th:fragment="main_menu" class="main_menu">
     <div  class="top_menu" id="top_menu">
         <div class="item_menu" id="menu_item0">
-            <a th:href="@{/}">Main</a>
+            <a th:href="@{/}">Главная</a>
         </div>
         <div  sec:authorize="isAuthenticated()" class="item_menu" id="menu_item1">
-            <a th:href="@{'/profile/'+${userid}}">My Profile</a>
+            <a th:href="@{'/profile/'+${userid}}">Профиль</a>
         </div>
 
 
         <div sec:authorize="hasRole('ROLE_ADMIN')" class="item_menu" id="menu_item3">
-            <a th:href="@{/admin/users}">Users</a>
+            <a th:href="@{/admin/users}">Пользователи</a>
         </div>
         <div sec:authorize="hasRole('ROLE_ADMIN')" class="item_menu" id="menu_item4">
-            <a th:href="@{/admin/users}">Controllers</a>
+            <a th:href="@{/admin/users}">Контроллеры</a>
         </div>
         <div sec:authorize="hasRole('ROLE_ADMIN')" class="item_menu" id="menu_item5">
-            <a th:href="@{/admin/users}">Settings</a>
+            <a th:href="@{/admin/users}">Настройки системы</a>
         </div>
         <div sec:authorize="hasRole('ROLE_ADMIN')" class="item_menu" id="menu_item6">
-            <a th:href="@{/admin/users}">Mnitor</a>
+            <a th:href="@{/admin/users}">Мониторинг</a>
         </div>
         <div sec:authorize="hasRole('ROLE_ADMIN')" class="item_menu" id="menu_item7">
-            <a th:href="@{/admin/users}">Mail sending</a>
+            <a th:href="@{/admin/users}">Рассылка</a>
         </div>
     </div>
 </div>

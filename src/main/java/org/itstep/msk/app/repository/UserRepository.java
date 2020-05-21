@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Repository
@@ -12,5 +13,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 //    @Query(value = "select username,password from users u join user_roles r on u.id=r.user_id where u.id=?", nativeQuery = true)
     Optional<User> findByUsername(String username);
     //User findById(Integer i);
+    @Query(value = "select * from users where username like %?% or first_name like %?% ", nativeQuery = true)
+    ArrayList<User> findLikeUsername(String name,String login);
 
 }
