@@ -38,6 +38,10 @@ public class User implements Serializable {
     )
     private Set<Role> userRole;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
+    private Set<ControllerWiy> controllers;
+
+
     public Integer getId() {
         return id;
     }
@@ -86,5 +90,13 @@ public class User implements Serializable {
 
     public void setUserRole(Set<Role> userRole) {
         this.userRole = userRole;
+    }
+
+    public Set<ControllerWiy> getControllers() {
+        return controllers;
+    }
+
+    public void setControllers(Set<ControllerWiy> controllers) {
+        this.controllers = controllers;
     }
 }

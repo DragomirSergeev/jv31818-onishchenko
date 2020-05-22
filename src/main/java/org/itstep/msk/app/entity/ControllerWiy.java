@@ -18,9 +18,11 @@ public class ControllerWiy {
     @Column(name = "hostname")
     private String hostname;
 
-    @Column(name = "owner")
+    @ManyToOne
+    @JoinColumn(name = "id",nullable = false,insertable = false,updatable = false)
+//    @Column(name = "owner")
    // @ManyToOne(targetEntity = User.class)
-    private Integer owner;
+    private User owner;
 
     @Column(name = "name")
     private String name;
@@ -49,11 +51,11 @@ public class ControllerWiy {
         this.hostname = hostname;
     }
 
-    public Integer getOwner() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setOwner(Integer owner) {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 

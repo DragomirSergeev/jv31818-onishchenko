@@ -8,6 +8,24 @@
 </head>
 <body>
 <div th:include="/fragments :: main_menu">  </div>
+<p color="white" align="center"><b>Управление контроллерами</b></p>
 
+<div id="controllersAdmin">
+    <table>
+        <tr th:id="${lsr.id}" th:each="lsr : ${list}">
+            <td><input type="checkbox" th:checked="${lsr.enabled}" class="blockUser" th:attr="data-controller-id=${lsr.id}"></td>
+
+            <td th:text=></td>
+
+
+            <td th:text=></td>
+
+
+            <td>
+                <a class="deleteRow" href="" th:attr="data-user-id=${lsr.id}">Удалить</a>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

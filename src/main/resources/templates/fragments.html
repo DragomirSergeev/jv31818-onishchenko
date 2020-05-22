@@ -30,7 +30,7 @@
             <a th:href="@{/admin/users}">Пользователи</a>
         </div>
         <div sec:authorize="hasRole('ROLE_ADMIN')" class="item_menu" id="menu_item4">
-            <a th:href="@{/admin/users}">Контроллеры</a>
+            <a th:href="@{/admin/controllers}">Контроллеры</a>
         </div>
         <div sec:authorize="hasRole('ROLE_ADMIN')" class="item_menu" id="menu_item5">
             <a th:href="@{/admin/users}">Настройки системы</a>

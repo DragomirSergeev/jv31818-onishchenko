@@ -6,6 +6,7 @@ import org.itstep.msk.app.remote.RemoteController;
 import org.itstep.msk.app.repository.ControllerWiyRepository;
 import org.itstep.msk.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

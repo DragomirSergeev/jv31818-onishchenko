@@ -1,4 +1,4 @@
-package org.itstep.msk.app.controller.rest;
+package org.itstep.msk.app.controller.rest.user;
 
 import org.itstep.msk.app.entity.ControllerWiy;
 import org.itstep.msk.app.remote.RemoteController;

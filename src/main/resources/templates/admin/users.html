@@ -9,7 +9,7 @@
 </head>
 <body>
 <div th:include="/fragments :: main_menu">  </div>
-<div><h1 color="white">Управление пользователями</h1></div>
+<p color="white" align="center"><b>Управление пользователями</b></p>
 <br/>
 <br/>
 <form>
@@ -26,39 +26,41 @@
 <br/>
 <form th:object="${user}" th:action="@{/admin/users}" method="POST">
 <table class="central">
+    <tr><td>Активен</td><td>Пользователь</td><td>Логин</td><td>Действия</td></tr>
     <tr th:id="${lsr.id}" th:each="lsr : ${list}">
         <td><input type="checkbox" th:checked="${lsr.enabled}" class="blockUser" th:attr="data-user-id=${lsr.id}"></td>
-        <td>Пользователь:</td>
+
         <td th:text=${lsr.firstName}></td>
 
-        <td>Логин:</td>
+
         <td th:text=${lsr.username}></td>
 
-        <td>Действия</td>
+
         <td>
             <a class="deleteRow" href="" th:attr="data-user-id=${lsr.id}">Удалить</a>
             <a th:href="@{/admin/user/}+${lsr.id}">Контроллеры</a>
         </td>
     </tr>
-    <tr><td colspan="7" th:if="${pages.size > 0}" class="pagination"
+    <tr><td colspan="4" th:if="${pages.size > 0}" class="pagination"
             th:each="page : ${pages}">
         <a th:href="@{/admin/users/}+${page}*50+'&'+${page}*50+50">th:text=${page}</a>
     </td></tr>
-    <tr><td colspan="7">Добавить пользователя.(простой пасс)</td></tr>
+    <tr><td colspan="4" background="grey"><br/>Добавить пользователя.</td></tr>
 
     <tr>
-        <td colspan="2"><p>Login</p></td><td><p>
+        <td><p>Login</p></td><td><p>
         <input type="text" id="username" th:field="*{username}"/>
     </p></td>
+
         <td><p>First name</p></td><td><p>
         <input type="text" id="first_name" th:field="*{firstName}"/>
     </p></td>
-        <td><p>Password</p></td><td><p>
-        <input type="password" id="password" th:field="*{password}"/>
-    </p></td>
     <tr>
-    <td colspan="4"><p>Включить: <input type="checkbox" th:field="*{enabled}" max="1" min="0"/></p></td>
-    <td  colspan="3"><p><input type="submit" value="Добавить"/></p></td>
+    <td><p>Включить: <input type="checkbox" th:field="*{enabled}" max="1" min="0"/></p></td>
+    <td cols[an="2"><p>Password</p></td><td><p>
+    <input type="password" id="password" th:field="*{password}"/>
+</p></td>
+    <td><p><input type="submit" value="Добавить"/></p></td>
 </tr>
 </table>
 </form>
